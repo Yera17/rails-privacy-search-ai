@@ -94,9 +94,17 @@ class DocumentsController < ApplicationController
     string_response= response_3["choices"][0]["message"]["content"]
     string_response.gsub!(/(```|json)/, '')
     hash_response = JSON.parse(string_response)
-    hash_response = hash_response.transform_keys {|key| key.sub("person_", "") }
-    hash_response
+    hash_response = hash_response.transform_keys { |key| key.sub("person_", "") }
+    seed_ai_data(hash_response)
+    return hash_response
   end
 
-  # search(text)
+  def seed_ai_data(some_hash)
+    Person.destroy_all
+    Source.destroy_all
+    some_hash.each do |_key, value|
+      Person.create(full_name: value["full_name"], company_name: value["company_name"])
+      Source.create(person: Person.last, identification_method: value["identification_method"], identified_text: value["identified_text"])
+    end
+  end
 end
