@@ -1,3 +1,5 @@
+require 'json'
+
 class DocumentsController < ApplicationController
   def create
     uploaded_file = File.open(document_params[:file])
@@ -5,8 +7,8 @@ class DocumentsController < ApplicationController
 
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
-      # @ai_response = search(@document)
-      redirect_to document_people_path(@document)
+      @ai_response = search(@document)
+      redirect_to document_people_path(@document, response: @ai_response)
     else
       render 'pages/home', status: :unprocessable_entity
     end
@@ -33,25 +35,25 @@ class DocumentsController < ApplicationController
                   company, be really specific. Structure you reponse with Identification_method: where you say what
                   clues you saw and Identified_text: where you give an example snippet from the document where you get
                   that clue from. Also Give these two items per company, nothing else"
-    question_3 = 'can you make a variable that contains the following text in ruby : "For every company you mentioned,
-                  give a list of 5 people that could have been mentioned in the document. I\'m using you as an API,
-                  don\'t send me any human language.
-                  I\'d like to have a list of people formatted In a JSON like this:
+    question_3 = 'I\'m using you as an API, don\'t send me any human language.
+                  For every company you mentioned,
+                  give 5 people that could have been mentioned in the document.
+                  You must to send every given person combined in one list formatted in a JSON like this
+                  (For identification_method first summarize shortly how you identified the company and then how
+                  you identified the person. Every "person_number" should be unique):
                   {
-                    "person_1":
+                    "person_number":
                       {
                       "full_name": "name",
                       "company_name": "company name",
                       "identification_method": "identification method",
                       "identified_text": "identified text"
                       }
-                  }
-                  For identification_method first summarize shortly how you
-                  identified the company and then how you identified the person.'
-    system_prompt = "You are a helpful assistant that helps us to check whether a document is anonymized well enough.
-                    We give you a file that is redacted. Your role is to find clues that eventually identify the
-                    names of the specific persons of the document. You can use all the tools you want to reach
-                    your goal. You can search online!"
+                  }'
+    system_prompt = "You can search online! You are a helpful assistant that helps us to check whether a document is
+                    anonymized well enough. We give you a file that is redacted. Your role is to find clues that
+                    eventually identify the names of the specific persons of the document. You can use all the tools
+                    you want to reach your goal."
 
     client = OpenAI::Client.new
 
@@ -63,33 +65,37 @@ class DocumentsController < ApplicationController
       ]
     })
 
-    # output_1 = response_1["choices"][0]["message"]["content"]
+    output_1 = response_1["choices"][0]["message"]["content"]
 
-    # response_2 = client.chat(parameters: {
-    #   model: "gpt-3.5-turbo",
-    #   messages: [
-    #     { role: "system", content: system_prompt },
-    #     { role: "user", content: question_1 },
-    #     { role: "assistant", content: output_1 },
-    #     { role: "user", content: question_2 }
-    #   ]
-    # })
+    response_2 = client.chat(parameters: {
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: system_prompt },
+        { role: "user", content: question_1 },
+        { role: "assistant", content: output_1 },
+        { role: "user", content: question_2 }
+      ]
+    })
 
-    # output_2 = response_2["choices"][0]["message"]["content"]
+    output_2 = response_2["choices"][0]["message"]["content"]
 
-    # response_3 = client.chat(parameters: {
-    #   model: "gpt-3.5-turbo",
-    #   messages: [
-    #     { role: "system", content: system_prompt },
-    #     { role: "user", content: question_1 },
-    #     { role: "assistant", content: output_1 },
-    #     { role: "user", content: question_2 },
-    #     { role: "assistant", content: output_2 },
-    #     { role: "user", content: question_3 }
-    #   ]
-    # })
+    response_3 = client.chat(parameters: {
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: system_prompt },
+        { role: "user", content: question_1 },
+        { role: "assistant", content: output_1 },
+        { role: "user", content: question_2 },
+        { role: "assistant", content: output_2 },
+        { role: "user", content: question_3 }
+      ]
+    })
 
-    return response_1["choices"][0]["message"]["content"]
+    string_response= response_3["choices"][0]["message"]["content"]
+    string_response.gsub!(/(```|json)/, '')
+    hash_response = JSON.parse(string_response)
+    hash_response = hash_response.transform_keys {|key| key.sub("person_", "") }
+    hash_response
   end
 
   # search(text)
