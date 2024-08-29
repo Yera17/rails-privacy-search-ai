@@ -7,8 +7,9 @@ class DocumentsController < ApplicationController
 
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
-      @ai_response = chunk_call(@document)
-      redirect_to document_people_path(@document, response: @ai_response)
+      Person.destroy_all
+      length = chunk_call(@document[:text])
+      redirect_to document_people_path(@document, length: length)
     else
       render 'pages/home', status: :unprocessable_entity
     end
@@ -31,8 +32,8 @@ class DocumentsController < ApplicationController
     chunks = []
     start_index = 0
 
-    while start_index < document[:text].length
-      chunk = document[:text][start_index, 5000]
+    while start_index < document.length
+      chunk = document[start_index, 5000]
       chunks << chunk
       start_index += 5000
     end
@@ -41,13 +42,13 @@ class DocumentsController < ApplicationController
 
   def chunk_call(document)
     chunks = chunk(document)
-    chunks.each_with_index do |chunk, index|
-      begin
-        search(chunk)
-      rescue StandardError
-      end
+    Person.destroy_all
+    chunks.each do |chunk|
+      search(chunk)
+      sleep(5)
+      # rescue StandardError
     end
-    return 
+    return chunks.length
   end
 
   def search(chunk)
@@ -64,7 +65,7 @@ class DocumentsController < ApplicationController
                   You must to send every given person combined in one list formatted in a JSON like this
                   (For identification_method first summarize shortly how you identified the company and then how
                   you identified the person. Every "person_number" should be unique):
-                  {
+                  "{
                     "person_number":
                       {
                       "full_name": "name",
@@ -72,11 +73,11 @@ class DocumentsController < ApplicationController
                       "identification_method": "identification method",
                       "identified_text": "identified text"
                       }
-                  }'
+                  }"'
     system_prompt = "You can search online! You are a helpful assistant that helps us to check whether a document is
-                    anonymized well enough. We give you a file that is redacted. Your role is to find clues that
-                    eventually identify the names of the specific persons of the document. You can use all the tools
-                    you want to reach your goal."
+                    anonymized well enough. Read a document carefully. We give you a file that is redacted. Your role
+                    is to find clues that eventually identify the names of the specific persons of the document.
+                    You can use all the tools you want to reach your goal."
 
     client = OpenAI::Client.new
 
@@ -89,7 +90,7 @@ class DocumentsController < ApplicationController
     })
 
     output_1 = response_1["choices"][0]["message"]["content"]
-
+    sleep(5)
     response_2 = client.chat(parameters: {
       model: "gpt-4o",
       messages: [
@@ -101,7 +102,7 @@ class DocumentsController < ApplicationController
     })
 
     output_2 = response_2["choices"][0]["message"]["content"]
-
+    sleep(5)
     response_3 = client.chat(parameters: {
       model: "gpt-4o",
       messages: [
@@ -114,20 +115,19 @@ class DocumentsController < ApplicationController
       ]
     })
 
-    string_response= response_3["choices"][0]["message"]["content"]
+    string_response = response_3["choices"][0]["message"]["content"]
     string_response.gsub!(/(```|json)/, '')
     hash_response = JSON.parse(string_response)
     hash_response = hash_response.transform_keys { |key| key.sub("person_", "") }
     seed_ai_data(hash_response)
-    return hash_response
   end
 
   def seed_ai_data(some_hash)
-    Person.destroy_all
-    Source.destroy_all
     some_hash.each do |_key, value|
       Person.create(full_name: value["full_name"], company_name: value["company_name"])
-      Source.create(person: Person.last, identification_method: value["identification_method"], identified_text: value["identified_text"])
+      Source.create(person: Person.last,
+                    identification_method: value["identification_method"],
+                    identified_text: value["identified_text"])
     end
   end
 end
