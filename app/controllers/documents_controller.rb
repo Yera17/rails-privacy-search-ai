@@ -5,7 +5,7 @@ class DocumentsController < ApplicationController
 
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
-      search(@document)
+      # search(@document)
       redirect_to document_people_path(@document)
     else
       render 'pages/home', status: :unprocessable_entity
@@ -130,5 +130,5 @@ account. And what we also saw is that the "
     return response_1["choices"][0]["message"]["content"]
   end
 
-  search(text)
+  # search(text)
 end
