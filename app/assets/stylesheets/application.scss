@@ -10,3 +10,29 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+//SCSS partials
+@import "components/footer";
+@import "components/navbar";
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  flex: 1;
+}
