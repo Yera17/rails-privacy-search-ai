@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
 
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
-      @ai_response = search(@document)
+      @ai_response = chunk_call(@document)
       redirect_to document_people_path(@document, response: @ai_response)
     else
       render 'pages/home', status: :unprocessable_entity
@@ -27,8 +27,31 @@ class DocumentsController < ApplicationController
     params.require(:document).permit(:file_name, :file)
   end
 
-  def search(document)
-    question_1 = "Document text: #{document[:text]} Question: This is an document about a company. What are the 3 most
+  def chunk(document)
+    chunks = []
+    start_index = 0
+
+    while start_index < document[:text].length
+      chunk = document[:text][start_index, 5000]
+      chunks << chunk
+      start_index += 5000
+    end
+    return chunks
+  end
+
+  def chunk_call(document)
+    chunks = chunk(document)
+    chunks.each_with_index do |chunk, index|
+      begin
+        search(chunk)
+      rescue StandardError
+      end
+    end
+    return 
+  end
+
+  def search(chunk)
+    question_1 = "Document text: #{chunk} Question: This is an document about a company. What are the 3 most
                   likely companies that the document is about. Every name prefix it with Company_name: . Only give the
                   3 companies with Company_name: nothing else"
     question_2 = "For every company you find, explain what clues from the document made you think it could be that
