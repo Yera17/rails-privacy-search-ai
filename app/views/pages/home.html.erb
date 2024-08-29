@@ -1,8 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<%= simple_form_for @document do |f| %>
-  <%= f.input :file_name %>
-  <%= f.input :file, as: :file %>
-  <%= f.button :submit %>
-<% end %>
+<div class="banner">
+ <%= image_tag "img-banner.png", alt: "banner"%>
+ <div class="banner-text">Test the privacy of your document</div>
+</div>
+<div class="main-content">
+        <div class="form-container">
+            <h3>Select documents you want to re-identify</h3>
+            <%= simple_form_for @document do |f| %>
+              <div class="file-input">
+                  <%= f.input :file_name, label: false, placeholder: "Add files or select a folder" %>
+                  <%= f.input :file, as: :file, label: false %>
+              </div>
+              <%= f.button :submit, class: "submit-button" %>
+            <% end %>
+        </div>
+  </div>
