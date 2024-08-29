@@ -1,4 +1,11 @@
 <h1>People#index</h1>
 <p>Find me in app/views/people/index.html.erb</p>
 
-<%= p params[:response] %>
+<% @people.each do |person| %>
+  <li>Name: <%= person.full_name %> | Company name: <%= person.company_name %></li>
+  <%# Source: <%= person.source.identification_method %>
+          <%# <%= person.source.identified_text %>
+<% end %>
+
+
+<%# <%= p params[:response] %>
