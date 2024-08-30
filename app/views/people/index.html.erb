@@ -1,11 +1,21 @@
-<h1>People#index</h1>
-<p>Find me in app/views/people/index.html.erb</p>
-
-<% @people.each do |person| %>
-  <li>Name: <%= person.full_name %> | Company name: <%= person.company_name %></li>
-  <%# Source: <%= person.source.identification_method %>
-          <%# <%= person.source.identified_text %>
-<% end %>
-
-
-<%# <%= p params[:response] %>
+<body class ="peopleindex-body">
+  <h1 class="peopleindex-page-title">Potential People of Interest</h1>
+  <div class="peopleindex-container">
+  <table class="peopleindex-table">
+    <thead>
+      <tr>
+        <th class="header-1">Full Name</th>
+        <th class="header-2">Company Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person| %>
+        <tr>
+          <td class="column-1"><%= person.full_name %></td>
+          <td class="column-2"><%= person.company_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</body>
