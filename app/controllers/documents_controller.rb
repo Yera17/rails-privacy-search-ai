@@ -84,51 +84,27 @@ class DocumentsController < ApplicationController
                     You can use all the tools you want to reach your goal."
 
     client = OpenAI::Client.new
-    parameters = {
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: system_prompt },
-        { role: "user", content: question_1 }
-      ]
-    }
-    # debugger
-    response_1 = chat_with_retry(client, parameters)
-
-    # response_1 = client.chat(parameters: {
+    # parameters = {
     #   model: "gpt-4o",
     #   messages: [
     #     { role: "system", content: system_prompt },
     #     { role: "user", content: question_1 }
     #   ]
-    # })
+    # }
+    # # debugger
+    # response_1 = chat_with_retry(client, parameters)
+
+    response_1 = client.chat(parameters: {
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: system_prompt },
+        { role: "user", content: question_1 }
+      ]
+    })
 
     output_1 = response_1["choices"][0]["message"]["content"]
     # sleep(5)
-    # response_2 = client.chat(parameters: {
-    #   model: "gpt-4o",
-    #   messages: [
-    #     { role: "system", content: system_prompt },
-    #     { role: "user", content: question_1 },
-    #     { role: "assistant", content: output_1 },
-    #     { role: "user", content: question_2 }
-    #   ]
-    # })
-
-    # output_2 = response_2["choices"][0]["message"]["content"]
-    # # sleep(5)
-    # response_3 = client.chat(parameters: {
-    #   model: "gpt-4o",
-    #   messages: [
-    #     { role: "system", content: system_prompt },
-    #     { role: "user", content: question_1 },
-    #     { role: "assistant", content: output_1 },
-    #     { role: "user", content: question_2 },
-    #     { role: "assistant", content: output_2 },
-    #     { role: "user", content: question_3 }
-    #   ]
-    # })
-
-    response_2 = chat_with_retry(client, {
+    response_2 = client.chat(parameters: {
       model: "gpt-4o",
       messages: [
         { role: "system", content: system_prompt },
@@ -139,8 +115,8 @@ class DocumentsController < ApplicationController
     })
 
     output_2 = response_2["choices"][0]["message"]["content"]
-
-    response_3 = chat_with_retry(client, {
+    # sleep(5)
+    response_3 = client.chat(parameters: {
       model: "gpt-4o",
       messages: [
         { role: "system", content: system_prompt },
@@ -151,6 +127,30 @@ class DocumentsController < ApplicationController
         { role: "user", content: question_3 }
       ]
     })
+
+    # response_2 = chat_with_retry(client, {
+    #   model: "gpt-4o",
+    #   messages: [
+    #     { role: "system", content: system_prompt },
+    #     { role: "user", content: question_1 },
+    #     { role: "assistant", content: output_1 },
+    #     { role: "user", content: question_2 }
+    #   ]
+    # })
+
+    # output_2 = response_2["choices"][0]["message"]["content"]
+
+    # response_3 = chat_with_retry(client, {
+    #   model: "gpt-4o",
+    #   messages: [
+    #     { role: "system", content: system_prompt },
+    #     { role: "user", content: question_1 },
+    #     { role: "assistant", content: output_1 },
+    #     { role: "user", content: question_2 },
+    #     { role: "assistant", content: output_2 },
+    #     { role: "user", content: question_3 }
+    #   ]
+    # })
 
     string_response = response_3["choices"][0]["message"]["content"]
     hash_response = parse_ai_data(string_response)
