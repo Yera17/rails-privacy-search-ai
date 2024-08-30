@@ -49,7 +49,7 @@ class DocumentsController < ApplicationController
     chunks.each_with_index do |chunk, index|
       Rails.logger.error("Starting search for chunk: #{index}")
       search(chunk)
-      sleep(10)
+      # sleep(10)
       # rescue StandardError
     end
   end
