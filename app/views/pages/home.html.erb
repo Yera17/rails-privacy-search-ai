@@ -1,16 +1,10 @@
-<div class="banner">
- <%= image_tag "img-banner.png", alt: "banner"%>
- <div class="banner-text">Test the privacy of your document</div>
-</div>
-<div class="main-content">
+ <body class="home-page">
+        <h1>Test the privacy of your document</h1>
         <div class="form-container">
-            <h3>Select documents you want to re-identify</h3>
             <%= simple_form_for @document do |f| %>
-              <div class="file-input">
-                  <%= f.input :file_name, label: false, placeholder: "Add files or select a folder" %>
-                  <%= f.input :file, as: :file, label: false %>
-              </div>
-              <%= f.button :submit, class: "submit-button" %>
+                <%= f.input :file_name, label: "File Name" %>
+                <%= f.input :file, as: :file, label: "Upload File" %>
+                <%= f.button :submit, "Submit", class: "submit-button" %>
             <% end %>
         </div>
-  </div>
+ </body>
