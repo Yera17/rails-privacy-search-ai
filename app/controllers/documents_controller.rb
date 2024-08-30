@@ -9,10 +9,9 @@ class DocumentsController < ApplicationController
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
       Person.destroy_all
-      # search(@document[:text])
-      chunk_call(@document[:text])
+      search(@document[:text])
+      # chunk_call(@document[:text])
       redirect_to document_people_path(@document)
-      # redirect_to document_people_path(@document)
     else
       render 'pages/home', status: :unprocessable_entity
     end
