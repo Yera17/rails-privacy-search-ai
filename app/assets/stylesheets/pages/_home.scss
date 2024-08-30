@@ -73,3 +73,98 @@
 .submit-button:hover {
   background-color: #0056b3;
 }
+
+// code for page index
+
+.peopleindex-body {
+  background-image: url('peoplepagebackground.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
+}
+
+.peopleindex-page-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.peopleindex-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2.5%; /* Padding for the container */
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.peopleindex-table {
+  width: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.peopleindex-table th,
+.peopleindex-table td {
+  padding: 10px 31.25px; /* Increased padding by 25% from 25px to 31.25px */
+  text-align: left;
+  white-space: nowrap;
+}
+
+.peopleindex-table th.header-1 {
+  background-color: #0b233a;
+  color: #ffffff;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.peopleindex-table th.header-2 {
+  background-color: #3b4f6b;
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.peopleindex-table tbody tr {
+  border-top: 1px solid #f0f0f0;
+}
+
+.peopleindex-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.peopleindex-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.peopleindex-table .column-1,
+.peopleindex-table .column-2 {
+  position: relative;
+}
+
+.peopleindex-table .column-2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 2px;
+  background-color: #0b233a;
+}
+
+.peopleindex-table a {
+  color: #8e44ad;
+  text-decoration: none;
+}
+
+.peopleindex-table a:hover {
+  text-decoration: underline;
+}
