@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_29_130026) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_02_083406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,16 +28,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_29_130026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "company_name"
-  end
-
-  create_table "queries", force: :cascade do |t|
-    t.text "query"
     t.bigint "document_id", null: false
-    t.bigint "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_queries_on_document_id"
-    t.index ["person_id"], name: "index_queries_on_person_id"
+    t.index ["document_id"], name: "index_people_on_document_id"
   end
 
   create_table "sources", force: :cascade do |t|
@@ -64,7 +56,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_29_130026) do
   end
 
   add_foreign_key "documents", "users"
-  add_foreign_key "queries", "documents"
-  add_foreign_key "queries", "people"
+  add_foreign_key "people", "documents"
   add_foreign_key "sources", "people"
 end

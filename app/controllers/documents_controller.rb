@@ -12,7 +12,6 @@ class DocumentsController < ApplicationController
       # search(@document[:text])
       # chunk_call(@document[:text])
       redirect_to document_people_path(@document)
-      # redirect_to document_people_path(@document)
     else
       render 'pages/home', status: :unprocessable_entity
     end
@@ -114,7 +113,7 @@ def search_openai(chunk)
   #     { role: "user", content: question_2 }
   #   ]
   # })
-
+  
   # output_2 = response_2["choices"][0]["message"]["content"]
   # # sleep(5)
   # response_3 = client.chat(parameters: {
@@ -256,14 +255,15 @@ end
 
 def chat_with_retry(client, parameters_, max_retries = 5)
   retries = 0
+  sleep_time = 16
   begin
     response = client.chat(parameters: parameters_)
+    sleep(sleep_time)
     return response
   rescue Faraday::Error => e
     Rails.logger.error("Error: #{e.message}")
     if retries < max_retries
-      retries += 1
-      sleep_time = 2**retries # Exponential backoff
+      retries += 1 # Exponential backoff
       Rails.logger.warn("Rate limit hit. Retrying in #{sleep_time} seconds... (Attempt #{retries} of #{max_retries})")
       sleep(sleep_time)
       retry
