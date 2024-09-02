@@ -95,7 +95,7 @@ h1 {
   background-color: #0080F3D6;
 }
 
-/* Style the H2 header */
+
 .new_login {
   margin-bottom: 20px;
   font-size: 2em;
@@ -105,9 +105,7 @@ h1 {
 // code for page index
 
 .peopleindex-body {
-  background-image: url('peoplepagebackground.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: #f8f8f8;
   font-family: Arial, sans-serif;
 }
 
@@ -121,80 +119,116 @@ h1 {
 }
 
 .peopleindex-container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 2.5%; /* Padding for the container */
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
+  display: block;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: fit-content;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .peopleindex-table {
-  width: auto;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #ffffff;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 .peopleindex-table th,
 .peopleindex-table td {
-  padding: 10px 31.25px; /* Increased padding by 25% from 25px to 31.25px */
+  padding: 12px 15px;
   text-align: left;
+  border: 1px solid #ddd;
   white-space: nowrap;
 }
 
-.peopleindex-table th.header-1 {
-  background-color: #0b233a;
-  color: #ffffff;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.peopleindex-table th.header-2 {
-  background-color: #3b4f6b;
-  color: #ffffff;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.peopleindex-table tbody tr {
-  border-top: 1px solid #f0f0f0;
+.peopleindex-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
 }
 
 .peopleindex-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.peopleindex-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-.peopleindex-table .column-1,
-.peopleindex-table .column-2 {
-  position: relative;
-}
-
 .peopleindex-table .column-2::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 20%;
-  height: 60%;
-  width: 2px;
-  background-color: #0b233a;
+  display: none;
 }
 
 .peopleindex-table a {
-  color: #8e44ad;
+  color: #007bff;
   text-decoration: none;
 }
 
 .peopleindex-table a:hover {
   text-decoration: underline;
+}
+
+//
+
+.personshow-body {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.personshow-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+
+
+.personshow-table {
+  width: 100%;
+  border-collapse: collapse;
+  padding: 0;
+  padding: 10px;
+  margin-top: 0;
+}
+
+
+.personshow-table th, .personshow-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+  background-color: #fafafa;
+}
+
+.personshow-table tr:nth-child(even) td {
+  background-color: #f1f1f1;
+}
+
+.personshow-page-title {
+  color: #333;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 2px solid #ddd;
+}
+
+.showheader-1, .showheader-2 {
+  font-weight: bold;
+  color: #555;
+  width: 220px;
+}
+
+.showcolumn-1, .showcolumn-2 {
+  color: #333;
+}
+
+.showcolumn-1 {
+  font-style: italic;
+}
+
+.showcolumn-2 {
+  font-family: "Georgia", serif;
 }
 
 .sign-up-start {

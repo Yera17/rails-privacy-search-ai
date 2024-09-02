@@ -5,6 +5,6 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
-    @sources = Source.where(person_id: @person.id)
   end
+
 end
