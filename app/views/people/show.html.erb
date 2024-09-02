@@ -1,2 +1,23 @@
-<h1>People#show</h1>
-<p>Find me in app/views/people/show.html.erb</p>
+<body class="personshow-body">
+  <div class="personshow-container">
+    <table class="personshow-table">
+      <thead>
+        <tr>
+          <th class="personshow-page-title" colspan="2"><%= @person.full_name %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @person.sources.each do |source| %>
+          <tr>
+            <td class="showheader-1">Identification Method:</td>
+            <td class="showcolumn-1"><%= source.identification_method %></td>
+          </tr>
+          <tr>
+            <td class="showheader-2">Identified Text:</td>
+            <td class="showcolumn-2"><%= source.identified_text %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
