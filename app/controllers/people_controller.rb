@@ -1,7 +1,6 @@
 class PeopleController < ApplicationController
   def index
-    @people = Person.all
-    @sources = Source.all
+    @people = Person.where(document_id: params[:document_id])
   end
 
   def show
