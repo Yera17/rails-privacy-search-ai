@@ -3,8 +3,8 @@
         <div class="form-container">
             <%= simple_form_for @document do |f| %>
                 <%= f.input :file_name, label: "File Name" %>
-                <%= f.input :file, as: :file, label: "Upload File" %>
-                <%= f.button :submit, "Submit", class: "submit-button" %>
+                <%= f.input :file, as: :file, label: "Upload the file for re-identification" %>
+                <%= f.button :submit, "Find people", class: "submit-button" %>
             <% end %>
         </div>
  </body>

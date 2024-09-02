@@ -1,19 +1,53 @@
 .navbar-lewagon {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bs-body-bg);
-  padding: 1rem 0;
-  height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: whitesmoke;
+    padding: 1rem 0;
+    height: 60px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  }
 
   .navbar-brand img {
     max-height: 40px;
     height: auto;
     width: auto;
     padding-left: 0%;
+    background: whitesmoke;
   }
 
   .navbar-collapse {
     flex-grow: 0;
   }
-}
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+  }
+
+  .nav-item {
+    margin-right: 10px;
+  }
+
+  .nav-link.btn {
+    display: inline-block;
+    padding: 10px 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #0b233a;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 10px;
+  }
+
+  .nav-link.btn:hover {
+    background-color: #0b233ab9; /* Darker blue on hover */
+  }
