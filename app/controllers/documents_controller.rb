@@ -1,5 +1,4 @@
 require 'json'
-require 'net/http'
 
 class DocumentsController < ApplicationController
   def create
@@ -8,7 +7,6 @@ class DocumentsController < ApplicationController
 
     @document = Document.new(file_name: document_params[:file_name], text: file_content, user: current_user)
     if @document.save
-      Person.destroy_all
       # search(@document[:text])
       chunk_call(@document[:text])
       redirect_to document_people_path(@document)
@@ -48,7 +46,7 @@ class DocumentsController < ApplicationController
     chunks.each_with_index do |chunk, index|
       Rails.logger.error("Starting search for chunk: #{index}")
       search(chunk)
-      # sleep(10)
+      # sleep(16)
       # rescue StandardError
     end
   end
@@ -84,15 +82,6 @@ class DocumentsController < ApplicationController
                     You can use all the tools you want to reach your goal."
 
     client = OpenAI::Client.new
-    parameters = {
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: system_prompt },
-        { role: "user", content: question_1 }
-      ]
-    }
-    # debugger
-    response_1 = chat_with_retry(client, parameters)
 
     # response_1 = client.chat(parameters: {
     #   model: "gpt-4o",
@@ -102,7 +91,6 @@ class DocumentsController < ApplicationController
     #   ]
     # })
 
-    # output_1 = response_1["choices"][0]["message"]["content"]
     # # sleep(5)
     # response_2 = client.chat(parameters: {
     #   model: "gpt-4o",
@@ -127,6 +115,18 @@ class DocumentsController < ApplicationController
     #     { role: "user", content: question_3 }
     #   ]
     # })
+
+    parameters = {
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: system_prompt },
+        { role: "user", content: question_1 }
+      ]
+    }
+
+    response_1 = chat_with_retry(client, parameters)
+
+    output_1 = response_1["choices"][0]["message"]["content"]
 
     response_2 = chat_with_retry(client, {
       model: "gpt-4o",
@@ -169,7 +169,7 @@ class DocumentsController < ApplicationController
     Rails.logger.warn("Found #{some_hash.length} people")
 
     some_hash.each_value do |value|
-      Person.create(full_name: value["full_name"], company_name: value["company_name"])
+      Person.create(full_name: value["full_name"], company_name: value["company_name"], document_id: Document.last.id)
       Source.create(
         person: Person.last,
         identification_method: value["identification_method"],
@@ -180,14 +180,15 @@ class DocumentsController < ApplicationController
 
   def chat_with_retry(client, parameters_, max_retries = 5)
     retries = 0
+    sleep_time = 16
     begin
       response = client.chat(parameters: parameters_)
+      sleep(sleep_time)
       return response
     rescue Faraday::Error => e
       Rails.logger.error("Error: #{e.message}")
       if retries < max_retries
-        retries += 1
-        sleep_time = 2**retries # Exponential backoff
+        retries += 1 # Exponential backoff
         Rails.logger.warn("Rate limit hit. Retrying in #{sleep_time} seconds... (Attempt #{retries} of #{max_retries})")
         sleep(sleep_time)
         retry
