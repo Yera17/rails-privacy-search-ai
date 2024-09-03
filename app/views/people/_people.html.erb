@@ -1,0 +1,23 @@
+
+<div id="document_<%= document.id %>_people">
+<%= turbo_stream_from "document_#{document.id}_people" %>
+<table class="peopleindex-table">
+<thead>
+  <tr>
+    <th class="header-1">Full Name</th>
+    <th class="header-2">Company Name</th>
+    <%# <th class="header-3">Occurrences</th> %>
+  </tr>
+</thead>
+<tbody>
+  <% people.each do |person| %>
+    <tr>
+      <td class="peopleindex-column-full-name column-1">
+        <%= link_to person.full_name, document_person_path(person.document_id, person), class: 'peopleindex-fullname-link' %>
+      </td>
+      <td class="peopleindex-column-company-name column-2"><%= person.company_name %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>

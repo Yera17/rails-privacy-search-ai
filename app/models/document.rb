@@ -1,3 +1,6 @@
+require 'json'
+require 'perplexity'
+
 class Document < ApplicationRecord
   belongs_to :user
   has_many :queries, dependent: :destroy
