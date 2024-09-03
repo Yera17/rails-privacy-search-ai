@@ -1,4 +1,5 @@
- <body class="home-page">
+ <div class="home-page">
+  <%# <div id="particles-js"></div> %>
         <h1>Test the privacy of your document</h1>
         <div class="form-container">
             <%= simple_form_for @document do |f| %>
@@ -7,4 +8,14 @@
                 <%= f.button :submit, "Find people", class: "submit-button" %>
             <% end %>
         </div>
- </body>
+
+<div id="particles-js"></div>
+ </div>
+
+
+  <!-- Initialize the particles effect -->
+  <script>
+      particlesJS.load('particles-js', '/particles.json', function() {
+        console.log('callback - particles.js config loaded');
+      });
+  </script>

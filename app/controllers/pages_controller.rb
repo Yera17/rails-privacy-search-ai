@@ -4,4 +4,6 @@ class PagesController < ApplicationController
   def home
     @document = Document.new
   end
+  def test_particles
+  end
 end
