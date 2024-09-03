@@ -1,2 +1,16 @@
-<h1>Documents#index</h1>
-<p>Find me in app/views/documents/index.html.erb</p>
+<h1 class="index-h1">Overview documents</h1>
+<div class="index-main">
+  <ul class="index-container">
+    <% @documents.each do |document| %>
+      <li class="doc-card">
+      <a href="<%= document_people_path(document) %>" class="doc-link">
+        <%= image_tag "txt.webp", alt: "txt file", class: "doc-image" %>
+        <h2 class="doc-name">
+          <%= document.file_name %>
+        </h2>
+        </a>
+        <%= link_to 'Delete', document_path(document), data: { turbo_method: :delete, turbo_confirm:'Are you sure you want to delete this document?' }, class: 'delete-btn' %>
+      </li>
+    <% end %>
+  </ul>
+</div>
