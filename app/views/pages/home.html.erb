@@ -1,21 +1,27 @@
- <div class="home-page">
-  <%# <div id="particles-js"></div> %>
+ <body class="body-home-page">
+
+  <div class="example-wrapper"><div id="particles-js"></div></div>
         <h1>Test the privacy of your document</h1>
         <div class="form-container">
-            <%= simple_form_for @document do |f| %>
-                <%= f.input :file_name, label: "File Name" %>
-                <%= f.input :file, as: :file, label: "Upload the file for re-identification" %>
-                <%= f.button :submit, "Find people", class: "submit-button" %>
+            <%= simple_form_for @document do |f|%>
+                <%= f.input :file_name, label: "File Name"%>
+                <%= f.input :file, as: :file, label: "Upload the file for re-identification"%>
+                <%= f.button :submit, "Find people", class: "submit-button"%>
             <% end %>
         </div>
-
-<div id="particles-js"></div>
- </div>
-
-
-  <!-- Initialize the particles effect -->
-  <script>
+</div>
+</body>
+<%# <script src="/javascripts/particles.min.js"></script> %>
+<!-- Initialize the particles effect -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof particlesJS !== 'undefined') {
+      console.log('particles.js script loaded');
       particlesJS.load('particles-js', '/particles.json', function() {
-        console.log('callback - particles.js config loaded');
+        console.log('particles.js config loaded');
       });
-  </script>
+    } else {
+      console.error('particlesJS is not defined');
+    }
+  });
+</script>
