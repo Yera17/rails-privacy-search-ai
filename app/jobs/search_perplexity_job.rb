@@ -27,7 +27,7 @@ class SearchPerplexityJob < ApplicationJob
                   Don\'t create separate JSON objects for each company. Combine all people in one JSON object
                   For company_identification_method: you look at the previous response what clues it identified the specific company. Be really specific, give a structured step-by-step answer. Give at least 150 words!
                   For person_identification_method: you give the way you identified the person based on the fact that you identified the specific company. Be really specific. Give at least 100 words!
-                  Make sure the JSON output I like I ask, don\'t give any notes because I need to use the JSON in this exact format later.
+                  Make sure the JSON output like I ask, don\'t give any notes because I need to use the JSON in this exact format later.
                   '
     system_prompt = "You are a helpful assistant that helps us to check whether a document is
                     anonymized well enough. We give you a file that is redacted. Your role is to find clues that
