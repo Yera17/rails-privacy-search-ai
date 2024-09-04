@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "PRIVACYSEARCH.png", alt: "Your Company Logo" %>
     <% end %>
 
@@ -12,7 +12,7 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "My documents", "#", class: "nav-link btn btn-primary" %>
+            <%= link_to "My documents", documents_index_path , class: "nav-link btn btn-primary" %>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

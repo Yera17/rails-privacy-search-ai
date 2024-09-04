@@ -1,32 +1,10 @@
 <body class="peopleindex-body">
   <h1 class="peopleindex-page-title">Potential People of Interest</h1>
   <div class="peopleindex-container">
-    <table class="peopleindex-table">
-      <thead>
-        <tr>
-          <th class="header-1">Full Name</th>
-          <th class="header-2">Company Name</th>
-          <th class="header-3">Occurrences</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @people.each do |person| %>
-          <%occurences = 0%>
-          <% @people.select {|name|
-          if person.full_name == name.full_name
-            occurences += 1
-          end
-          } %>
-          <tr>
-            <td class="peopleindex-column-full-name column-1">
-              <%= link_to person.full_name, document_person_path(params[:document_id], person.id), class: 'peopleindex-fullname-link' %>
-            </td>
-            <td class="peopleindex-column-company-name column-2"><%= person.company_name %></td>
-            <td class="peopleindex-column-occurrences column-3"><%= occurences %></td>
-          </tr>
+        <div>
 
-        <% end %>
-      </tbody>
-    </table>
+            <%= render partial: 'people/people', locals: {people: @people, document: @document} %>
+
+        </div>
   </div>
 </body>
