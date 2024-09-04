@@ -288,14 +288,14 @@ h1 {
 
 .index-h1 {
   text-align: center;
-  color:  #0080f3;
+  color:  white;
   font-family: 'Alegreya Sans';
   font-weight: bold;
 }
 
 .index-main {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   padding: 20px;
 }
 
@@ -308,10 +308,11 @@ h1 {
 }
 
 .doc-card {
+  background-color: #e0dbdb;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 5px solid #e0dbdb;
   border-radius: 10px;
   padding: 15px;
   margin: 10px;
@@ -332,7 +333,8 @@ h1 {
 }
 
 .doc-name {
+  text-decoration: none;
   margin-top: 10px;
   font-size: 1.2em;
-  color: #333;
+  color: #0080f3;
 }
