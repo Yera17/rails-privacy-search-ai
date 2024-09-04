@@ -1,10 +1,5 @@
 <body class="peopleindex-body">
-  <h1 class="peopleindex-page-title">Potential People of Interest</h1>
+  <%# <h1 class="peopleindex-page-title">Potential People of Interest</h1> %>
   <div class="peopleindex-container">
-        <div>
-
-            <%= render partial: 'people/people', locals: {people: @people, document: @document} %>
-
-        </div>
-  </div>
+    <%= render partial: 'people/people', locals: {people: @people, document: @document} %>
 </body>

@@ -1,22 +1,32 @@
-<div id="document_<%= document.id %>_people">
-<%= turbo_stream_from "document_#{document.id}_people" %>
-<table class="peopleindex-table">
-<thead>
-  <tr>
-    <th class="header-1">Full Name</th>
-    <th class="header-2">Company Name</th>
-    <%# <th class="header-3">Occurrences</th> %>
-  </tr>
-</thead>
-<tbody>
-  <% people.each do |person| %>
-    <tr>
-      <td class="peopleindex-column-full-name column-1">
-        <%= link_to person.full_name, document_person_path(person.document_id, person), class: 'peopleindex-fullname-link' %>
-      </td>
-      <td class="peopleindex-column-company-name column-2"><%= person.company_name %></td>
-    </tr>
+<div id="document_<%= document.id %>_people" class="d-flex flex-column">
+  <%= turbo_stream_from "document_#{document.id}_people" %>
+  <% if people.length == 0 %>
+    <div class="loading-gif d-flex justify-content-center">
+      <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+      <dotlottie-player src="https://lottie.host/0b622e85-2543-458c-a145-038b8b878383/qm3Pn8nu27.json" background="transparent" speed="1" style="width: 600px; height: 600px;" loop autoplay></dotlottie-player>
+    </div>
+    <p class="d-flex justify-content-center">Searching for people...</p>
+  <% else %>
+  <div class="peopleindex-container">
+    <table class="peopleindex-table">
+      <thead>
+        <tr>
+          <th class="header-1">Full Name</th>
+          <th class="header-2">Company Name</th>
+          <%# <th class="header-3">Occurrences</th> %>
+        </tr>
+      </thead>
+      <tbody>
+        <% people.each do |person| %>
+          <tr>
+            <td class="peopleindex-column-full-name column-1">
+              <%= link_to person.full_name, document_person_path(person.document_id, person), class: 'peopleindex-fullname-link' %>
+            </td>
+            <td class="peopleindex-column-company-name column-2"><%= person.company_name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <% end %>
-</tbody>
-</table>
 </div>

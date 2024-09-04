@@ -9,11 +9,11 @@
       <tbody>
         <% @person.sources.each do |source| %>
           <tr>
-            <td class="showheader-1">Identification Method:</td>
+            <td class="showheader-1">Company Identification Method:</td>
             <td class="showcolumn-1"><%= source.identification_method %></td>
           </tr>
           <tr>
-            <td class="showheader-2">Identified Text:</td>
+            <td class="showheader-2">Person Identification Method:</td>
             <td class="showcolumn-2"><%= source.identified_text %></td>
           </tr>
         <% end %>
