@@ -1,20 +1,18 @@
 <body class="body-home-page">
-  <div id="particles-js">
-       <div class="d-flex align-items-center" style="position:absolute;">
-      <div class="form-container d-flex align-items-center">
-          <%= simple_form_for @document do |f| %>
-              <%= f.input :file_name, label: "File Name" %>
-              <%= f.input :file, as: :file, label: "Upload the file for re-identification" %>
-              <%= f.button :submit, "Find people", class: "submit-button" %>
-          <% end %>
-      </div>
-      <div class="d-flex m-5 flex-column container-title-home">
-        <h1 class="title-home">Is your anonymized document truly safe? <br> Let AI test it</h1>
-        <p class="paragraph-home">Our tool utilizes AI to analyze clues within your anonymized documents and then searches online to attempt to re-identify the people</p>
-      </div>
+  <div class="d-flex align-items-center" style="position:absolute;">
+    <div class="form-container d-flex align-items-center">
+        <%= simple_form_for @document do |f| %>
+            <%= f.input :file_name, label: "File Name" %>
+            <%= f.input :file, as: :file, label: "Upload the file for re-identification" %>
+            <%= f.button :submit, "Find people", class: "submit-button" %>
+        <% end %>
     </div>
+    <div class="d-flex m-5 flex-column container-title-home">
+      <h1 class="title-home">Is your anonymized document truly safe? <br> Let AI test it</h1>
+      <p class="paragraph-home">Our tool utilizes AI to analyze clues within your anonymized documents and then searches online to attempt to re-identify the people</p>
     </div>
-  </body>
+  </div>
+</body>
 
 
 
