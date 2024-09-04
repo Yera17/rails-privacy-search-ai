@@ -13,7 +13,8 @@ class SearchPerplexityJob < ApplicationJob
     question_3 = 'I\'m using you as an API, don\'t send me any human language.
                   For every company you mentioned, give 3 people that could have been mentioned in the document. So 9 people in total.
                   Search online first.
-                  You must to send every given person combined in one list formatted in a JSON like this:
+                  You must to send every given person combined in one list formatted in a JSON like this(
+                  Don\'t create separate JSON objects for each company. Combine all people in one JSON object):
                   "{
                     "person_number":
                       {
