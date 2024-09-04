@@ -1,7 +1,7 @@
 class SearchPerplexityJob < ApplicationJob
   queue_as :default
 
-  def perform(document, id)
+  def perform(document)
     question_1 = "Document text: #{document.text} Question: This is an document about a company. What are the 3 most
                   likely companies that the document is about. Search online. Also look good at which region the company
                   is from. Every name prefix it with Company_name: . Only give the
@@ -38,7 +38,8 @@ class SearchPerplexityJob < ApplicationJob
       messages: [
         { role: "system", content: system_prompt },
         { role: "user", content: question_1 }
-      ]
+      ],
+      # temperature: 0.5
     })
 
     output_1 = response_1["choices"][0]["message"]["content"]
@@ -50,7 +51,8 @@ class SearchPerplexityJob < ApplicationJob
         { role: "user", content: question_1 },
         { role: "assistant", content: output_1 },
         { role: "user", content: question_2 }
-      ]
+      ],
+      # temperature: 0.5
     })
 
     output_2 = response_2["choices"][0]["message"]["content"]
@@ -64,15 +66,16 @@ class SearchPerplexityJob < ApplicationJob
         { role: "user", content: question_2 },
         { role: "assistant", content: output_2 },
         { role: "user", content: question_3 }
-      ]
+      ],
+      # temperature: 0.5
     })
 
     string_response = response_3["choices"][0]["message"]["content"]
     hash_response = parse_ai_data(string_response)
 
-    seed_ai_data(hash_response, id)
+    seed_ai_data(hash_response, document.id)
 
-    people = Person.where(document_id: id)
+    people = Person.where(document_id: document.id)
 
     Turbo::StreamsChannel.broadcast_replace_to(
       "document_#{document.id}_people",
