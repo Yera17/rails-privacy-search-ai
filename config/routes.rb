@@ -19,4 +19,5 @@ Rails.application.routes.draw do
     resources :people, only: [:index, :show]
   end
   resources :documents, only: [:destroy]
+   get 'test_particles', to: 'pages#test_particles'
 end

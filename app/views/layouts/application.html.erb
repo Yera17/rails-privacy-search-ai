@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+   <%= javascript_include_tag "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" %>
   </head>
 
-  <body>
-    <div class="site-wrapper">
+ <body>
+  <div class="content-wrapper">
+       <div class="site-wrapper" style="background-color: #0b233a;">
       <%= render "shared/navbar" %>
-      <div class="content-wrapper">
-        <%= render "shared/flashes" %>
-        <%= yield %>
-      </div>
+      <%= render "shared/flashes" %>
+      <%= yield %>
+    <%= render 'shared/footer' %>
     </div>
-     <%= render 'shared/footer' %>
-  </body>
-
+  </div>
+</body>
 </html>
