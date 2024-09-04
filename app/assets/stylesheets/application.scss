@@ -14,3 +14,15 @@
 //SCSS partials
 @import "components/footer";
 @import "components/navbar";
+
+.site-wrapper {
+  background-color: #0b233a;
+  min-height: 100vh;
+  position: relative;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
