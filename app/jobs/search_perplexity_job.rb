@@ -10,10 +10,11 @@ class SearchPerplexityJob < ApplicationJob
                   company, be really specific. Structure you reponse with Identification_method: where you say what
                   clues you saw and Identified_text: where you give an example snippet from the document where you get
                   that clue from. Also Give these two items per company, nothing else"
-    question_3 = 'I\'m using you as an API, don\'t send me any human language.
-                  For every company you mentioned, give 5 people that could have been mentioned in the document.
+    question_3 = 'I\'m using you as an API, don\'t send me any human language!
+                  For every company you mentioned, give 5 people that could have been mentioned in the document. 15 people in total.
                   Search online first.
-                  You must to send every given person combined in one list formatted in a JSON like this:
+                  You must to send every given person combined in one list formatted in a JSON like this(
+                  Don\'t create separate JSON objects for each company. Combine all people in one JSON object):
                   "{
                     "person_number":
                       {
