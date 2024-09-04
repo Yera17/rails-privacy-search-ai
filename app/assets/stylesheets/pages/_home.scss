@@ -12,6 +12,8 @@
   overflow: hidden;
 }
 
+
+
 .body-home-page {
   position: relative;
   background-color: #0b233a;
@@ -26,6 +28,7 @@
 }
 
 /* Style the header */
+
 h1 {
   text-align: right;
   font-size: 2.5em;
@@ -34,7 +37,6 @@ h1 {
   margin-right: 40px;
   color: white;
 }
-
 /* Style the form container */
 .form-container {
   position: relative;
@@ -63,18 +65,21 @@ h1 {
 .container-title-home {
   font-size: 15px;
   width: 22rem;
-    .title-home {
-      margin-top: 60px;
-      font-weight: 900;
-      text-align: left;
-    }
-    .paragraph-home {
-      font-size: 18px;
-      color: white;
-      text-align: left;
-      font-weight: normal;
-    }
+  flex-direction: column;
 }
+
+.title-home {
+  margin-top: 60px;
+  font-weight: 900;
+  text-align: left;
+  color: white;
+}
+
+.paragraph-home {
+  font-size: 18px;
+  color: white !important;
+}
+
 /* Style the submit button */
 .submit-button {
   margin-top: 60px;
@@ -278,7 +283,6 @@ h1 {
 .example-wrapper {
   background-color: #0b233a;
   width: 100%;
-  height: 100vh;
   z-index: 12;
 }
 
