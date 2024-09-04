@@ -7,11 +7,11 @@ class SearchPerplexityJob < ApplicationJob
                   is from. Every name prefix it with Company_name: . Only give the
                   3 companies with Company_name: nothing else"
     question_2 = "For every company you find, explain what clues from the document made you think it could be that
-                  company, be really specific. Structure you reponse with Identification_method: where you say what
+                  company, be really specific. Structure you reponse with Company_Identification_method: where you say what
                   clues you saw and Identified_text: where you give an example snippet from the document where you get
                   that clue from. Also Give these two items per company, nothing else"
     question_3 = 'I\'m using you as an API, don\'t send me any human language.
-                  For every company you mentioned, give 5 people that could have been mentioned in the document.
+                  For every company you mentioned, give 3 people that could have been mentioned in the document. So 9 people in total.
                   Search online first.
                   You must to send every given person combined in one list formatted in a JSON like this:
                   "{
@@ -19,10 +19,15 @@ class SearchPerplexityJob < ApplicationJob
                       {
                       "full_name": "name",
                       "company_name": "company name",
-                      "identification_method": "identification method",
-                      "identified_text": "identified text"
+                      "company_identification_method": "company identification method",
+                      "person_identification_method": "person identification method"
                       }
-                  }"'
+                  }"
+                  Don\'t create separate JSON objects for each company. Combine all people in one JSON object
+                  For company_identification_method: you look at the previous response what clues it identified the specific company. Be really specific, give a structured step-by-step answer. Give at least 150 words!
+                  For person_identification_method: you give the way you identified the person based on the fact that you identified the specific company. Be really specific. Give at least 100 words!
+                  Make sure the JSON output I like I ask, don\'t give any notes because I need to use the JSON in this exact format later.
+                  '
     system_prompt = "You are a helpful assistant that helps us to check whether a document is
                     anonymized well enough. We give you a file that is redacted. Your role is to find clues that
                     eventually identify the names of the specific persons of the document.  You first search online
@@ -97,8 +102,8 @@ class SearchPerplexityJob < ApplicationJob
       Person.create(full_name: value["full_name"], company_name: value["company_name"], document_id: document_id)
       Source.create(
         person: Person.last,
-        identification_method: value["identification_method"],
-        identified_text: value["identified_text"]
+        identification_method: "The company is identified based on these clues: \n #{value["company_identification_method"]}",
+        identified_text: "The person is identified based on these clues: \n #{value["person_identification_method"]}"
       )
     end
   end
