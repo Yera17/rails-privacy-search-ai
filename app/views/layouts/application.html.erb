@@ -12,12 +12,13 @@
 
  <body>
   <div class="content-wrapper">
-       <div class="site-wrapper" style="background-color: #0b233a;">
+       <div class="site-wrapper" style="background-color: #0b233a; height: 100%;">
+        <div class="example-wrapper"><div id="particles-js"></div></div>
       <%= render "shared/navbar" %>
       <%= render "shared/flashes" %>
       <%= yield %>
-    <%= render 'shared/footer' %>
     </div>
   </div>
+      <%= render 'shared/footer' %>
 </body>
 </html>
