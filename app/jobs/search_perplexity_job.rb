@@ -25,7 +25,6 @@ class SearchPerplexityJob < ApplicationJob
                         }
                       }
                   }"
-                  Don\'t create separate JSON objects for each company. Combine all people in one JSON object
                   For company_identification_method: you look at the previous response what clues it identified the specific company. Be really specific, give a structured step-by-step answer. Give at least 150 words!
                   For person_identification_method: you give the way you identified the person based on the fact that you identified the specific company. Be really specific. Give at least 100 words!
                   Make sure the JSON output like I ask, don\'t give any notes because I need to use the JSON in this exact format later.
@@ -38,13 +37,6 @@ class SearchPerplexityJob < ApplicationJob
                     Based on your results, we will improve the anonymization of the document accordingly.
                     You can use all the tools you want to reach your goal."
 
-
-                    # "identification_methods": {
-                    #   "identification_method_number": {
-                    #     "company_identification_method": "company identification method",
-                    #     "person_identification_method": "person identification method"
-                    #   }
-                    # }
     perplexity = Perplexity::API.new(api_key: ENV.fetch('PERPLEXITY_API_KEY'))
 
     response_1 = perplexity.client.chat(parameters: {
@@ -114,20 +106,20 @@ class SearchPerplexityJob < ApplicationJob
         Source.create(
           person: person,
           identification_method: "The company is identified based on these clues: This document appears to be a transcript from an ING Group earnings call or investor presentation. While the company name is not explicitly stated, there are several clues that point to ING:
-                                  The document discusses financial results, lending, deposits, and other banking metrics typical of a large financial institution.
-                                  It mentions specific markets like the Netherlands and Belgium, which are core markets for ING.
-                                  The speakers refer to their \"Growing the difference strategy\", which is ING's stated strategy.
-                                  There are references to mobile banking customers and digital services, which ING is known for emphasizing.
-                                  The document mentions a CET1 ratio and other banking-specific financial metrics.
-                                  The speakers discuss mortgage lending and wholesale banking, which are key business areas for ING.
-                                  While I cannot be 100% certain without an explicit statement, the content and context strongly suggest this is an ING Group earnings call transcript or similar investor communication.",
+                                  \n1. The document discusses financial results, lending, deposits, and other banking metrics typical of a large financial institution.
+                                  \n2. It mentions specific markets like the Netherlands and Belgium, which are core markets for ING.
+                                  \n3. The speakers refer to their \"Growing the difference strategy\", which is ING's stated strategy.
+                                  \n4. There are references to mobile banking customers and digital services, which ING is known for emphasizing.
+                                  \n5. The document mentions a CET1 ratio and other banking-specific financial metrics.
+                                  \n6. The speakers discuss mortgage lending and wholesale banking, which are key business areas for ING.
+                                  \n7. While I cannot be 100% certain without an explicit statement, the content and context strongly suggest this is an ING Group earnings call transcript or similar investor communication.",
           identified_text: "Based on the transcript, I believe Steven van Rijswijk is likely present because:
-                            The document appears to be an ING Group earnings call transcript, and Steven van Rijswijk is the CEO of ING Group.
-                            The transcript mentions \"I\" statements from a speaker who is discussing high-level strategy and performance, which aligns with the role of a CEO.
-                            There are references to \"we\" when discussing the company's performance and outlook, indicating the speaker is in a leadership position.
-                            The speaker provides an overview of the company's results and strategy before handing over to another executive (likely the CFO) for more detailed financial information, which is typical of a CEO's role in earnings calls.
-                            The document uses placeholder symbols (like □□ or ) instead of actual names, but the content and context strongly suggest one of these placeholders represents Steven van Rijswijk.
-                            While his name is not explicitly mentioned due to the use of placeholders, the structure and content of the call strongly indicate that Steven van Rijswijk, as CEO, would be a key participant in this earnings presentation."
+                            \n1. The document appears to be an ING Group earnings call transcript, and Steven van Rijswijk is the CEO of ING Group.
+                            \n2. The transcript mentions \"I\" statements from a speaker who is discussing high-level strategy and performance, which aligns with the role of a CEO.
+                            \n3. There are references to \"we\" when discussing the company's performance and outlook, indicating the speaker is in a leadership position.
+                            \n4. The speaker provides an overview of the company's results and strategy before handing over to another executive (likely the CFO) for more detailed financial information, which is typical of a CEO's role in earnings calls.
+                            \n5. The document uses placeholder symbols (like □□ or ) instead of actual names, but the content and context strongly suggest one of these placeholders represents Steven van Rijswijk.
+                            \n6. While his name is not explicitly mentioned due to the use of placeholders, the structure and content of the call strongly indicate that Steven van Rijswijk, as CEO, would be a key participant in this earnings presentation."
         )
       else
         Source.create(
@@ -138,15 +130,4 @@ class SearchPerplexityJob < ApplicationJob
       end
     end
   end
-
-    # some_hash.each_value do |value|
-    #   Person.create(full_name: value["full_name"], company_name: value["company_name"], document_id: document_id)
-    #   value["identification_methods"].each_value do |v|
-    #     Source.create(
-    #       person: person,
-    #       identification_method: "The company is identified based on these clues: \n #{v["company_identification_method"]}",
-    #       identified_text: "The person is identified based on these clues: \n #{v["person_identification_method"]}}"
-    #     )
-    #   end
-    # end
 end
