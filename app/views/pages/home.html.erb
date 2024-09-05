@@ -18,14 +18,12 @@
 <%# <script src="/javascripts/particles.min.js"></script> %>
 <!-- Initialize the particles effect -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
     if (typeof particlesJS !== 'undefined') {
-      console.log('particles.js script loaded');
+      console.log('particles.js script loaded', particlesJS);
       particlesJS.load('particles-js', '/particles.json', function() {
         console.log('particles.js config loaded');
       });
     } else {
       console.error('particlesJS is not defined');
     }
-  });
 </script>
