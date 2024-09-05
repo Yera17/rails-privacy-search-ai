@@ -40,7 +40,6 @@ h1 {
 /* Style the form container */
 .form-container {
   position: relative;
-  z-index: 5;
   justify-self: left;
   background: white;
   padding: 20px;
@@ -58,7 +57,7 @@ h1 {
   width: 100%;
   margin-bottom: 10px;
   margin-top: 5px;
-  border: none;
+  border: 1px solid #000000;
   border-radius: 5px;
 }
 
@@ -104,6 +103,8 @@ h1 {
   margin-top: 25px;
   justify-content: center;
   align-items: center;
+  margin-top: 0;
+  padding-top: 70px;
 }
 .login-container1 {
   background-color: white;
@@ -202,7 +203,7 @@ h1 {
 }
 
 .personshow-body {
-  background-color: #f9f9f9;
+  background-color: #0b233a;
   font-family: Arial, sans-serif;
   color: #333;
 }
@@ -214,6 +215,7 @@ h1 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 40px auto;
   max-width: 1200px;
+  margin-top: 50px;
 }
 
 
@@ -291,14 +293,16 @@ h1 {
 
 .index-h1 {
   text-align: center;
-  color:  #0080f3;
-  font-family: 'Alegreya Sans';
+  color:  white;
+  font-family: 'Nunito', Helvetica, sans-serif;
   font-weight: bold;
+  margin-top: 0;
+  padding-top: 15px;
 }
 
 .index-main {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   padding: 20px;
 }
 
@@ -311,10 +315,11 @@ h1 {
 }
 
 .doc-card {
+  background-color: #e0dbdb;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 1px solid #0080f3;
   border-radius: 10px;
   padding: 15px;
   margin: 10px;
@@ -335,7 +340,22 @@ h1 {
 }
 
 .doc-name {
+  text-decoration: none;
   margin-top: 10px;
-  font-size: 1.2em;
-  color: #333;
+  font-size: 16px;
+  color: #0080f3;
+  font-family: 'Work Sans', Helvetica, sans-serif;
+}
+
+.doc-link {
+  text-decoration: none;
+}
+
+.show-back-button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #0080f3;
+  font-size: x-large;
+  padding-top: 15px;
 }
