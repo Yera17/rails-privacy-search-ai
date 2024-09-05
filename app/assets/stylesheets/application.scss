@@ -17,7 +17,6 @@
 
 .site-wrapper {
   background-color: #0b233a;
-  min-height: 100vh;
+  min-height: calc(100vh - 110px);
   position: relative;
-  z-index: 5;
 }
